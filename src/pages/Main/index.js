@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import MapView, { Marker } from 'react-native-maps';
-import { Modal, View, ActivityIndicator } from 'react-native';
+import MapView, { Marker, Callout } from 'react-native-maps';
+import {
+  Modal, View, ActivityIndicator, Text,
+} from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
@@ -19,9 +21,19 @@ import {
   SpinnerBox,
   ErrorBox,
   ErrorText,
+  CalloutBox,
+  CalloutTextName,
+  CalloutTextBio,
 } from './sytles';
 
 import { Creators as UserActions } from '~/store/ducks/user';
+
+const region = {
+  latitude: -27.2177659,
+  longitude: -49.6451598,
+  latitudeDelta: 0.0042,
+  longitudeDelta: 0.0031,
+};
 
 class Main extends Component {
   static propTypes = {
@@ -70,6 +82,12 @@ class Main extends Component {
         <View>
           <Avatar source={{ uri: user.avatar_url }} />
         </View>
+        <Callout>
+          <CalloutBox>
+            <CalloutTextName>{user.name}</CalloutTextName>
+            <CalloutTextBio>{user.bio}</CalloutTextBio>
+          </CalloutBox>
+        </Callout>
       </Marker>
     ));
   };
@@ -79,16 +97,12 @@ class Main extends Component {
     const {
       user: { loading, error },
     } = this.props;
+
     return (
       <Container>
         <MapView
           style={styles.mapView}
-          region={{
-            latitude: -27.2177659,
-            longitude: -49.6451598,
-            latitudeDelta: 0.0042,
-            longitudeDelta: 0.0031,
-          }}
+          initialRegion={region}
           scrollEnabled
           onLongPress={this.showModal(!modalVisible)}
         >

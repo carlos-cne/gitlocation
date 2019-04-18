@@ -94,3 +94,22 @@ export const ErrorText = styled.Text`
   font-size: 13px;
   /* font-weight: bold; */
 `;
+
+export const CalloutBox = styled.View`
+  width: 200;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+`;
+
+export const CalloutTextName = styled.Text`
+  color: #333;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
+`;
+
+export const CalloutTextBio = styled.Text`
+  color: #666;
+  font-size: 12px;
+`;
